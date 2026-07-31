@@ -1,6 +1,11 @@
+import os
+from dotenv import load_dotenv
 from hackathon_scraper import scrape_hackathons
 from update_sheet import update_google_sheet
 from send_email import send_email
+
+# Load environment variables
+load_dotenv()
 
 def main():
     print("🔍 Scraping hackathons...")

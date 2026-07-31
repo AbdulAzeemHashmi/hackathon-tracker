@@ -1,54 +1,49 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-from datetime import datetime
 
 def scrape_hackathons():
-    """
-    Scrapes upcoming hackathons from Devpost filtered for Pakistan.
-    Returns a list of dictionaries with keys:
-    name, organizer, hackathon_date, deadline, max_members, fee, location
-    """
     url = "https://devpost.com/hackathons?utf8=%E2%9C%93&search=Pakistan"
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     
     try:
         response = requests.get(url, headers=headers, timeout=15)
         response.raise_for_status()
-    except requests.RequestException as e:
-        print(f"Error fetching page: {e}")
+        print(f"Status code: {response.status_code}")
+        print(f"Page title: {BeautifulSoup(response.text, 'html.parser').title.string}")
+    except Exception as e:
+        print(f"❌ Request failed: {e}")
         return []
 
     soup = BeautifulSoup(response.text, "html.parser")
     events = []
 
-    # Each hackathon card on Devpost has class "challenge-listing"
-    for card in soup.select(".challenge-listing"):
+    # Debug: print number of elements with class "challenge-listing"
+    cards = soup.select(".challenge-listing")
+    print(f"Found {len(cards)} challenge listings.")
+
+    for card in cards:
         try:
-            # Name
-            name_elem = card.select_one(".title a")
+            # Try different selectors (common patterns)
+            name_elem = card.select_one(".title a") or card.select_one("h2 a")
             name = name_elem.text.strip() if name_elem else "Unknown"
 
-            # Organizer
-            org_elem = card.select_one(".organization-name a")
+            org_elem = card.select_one(".organization-name a") or card.select_one(".company a")
             organizer = org_elem.text.strip() if org_elem else "Unknown"
 
-            # Start date and deadline (often displayed as text like "Starts on Apr 10, 2026")
-            date_elem = card.select_one(".start-date")
+            # Dates: often in <time> tags
+            date_elem = card.select_one(".start-date time") or card.select_one(".date time")
             hackathon_date = date_elem.text.strip() if date_elem else "TBD"
 
-            deadline_elem = card.select_one(".deadline")
+            deadline_elem = card.select_one(".deadline time") or card.select_one(".deadline-date time")
             deadline = deadline_elem.text.strip() if deadline_elem else "TBD"
 
-            # Location
             loc_elem = card.select_one(".location")
             location = loc_elem.text.strip() if loc_elem else "Online"
 
-            # Fee – often says "Free" or shows a price
             fee_elem = card.select_one(".entry-fee")
             fee = fee_elem.text.strip() if fee_elem else "Free"
 
-            # Max team members – not always shown; default to "4"
             max_members = "4"
 
             events.append({
@@ -65,10 +60,3 @@ def scrape_hackathons():
             continue
 
     return events
-
-# For quick testing
-if __name__ == "__main__":
-    data = scrape_hackathons()
-    print(f"Found {len(data)} hackathons.")
-    for item in data[:3]:
-        print(item)
