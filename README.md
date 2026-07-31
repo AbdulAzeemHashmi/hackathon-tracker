@@ -4,10 +4,6 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=20&pause=1000&color=2088FF&center=true&vCenter=true&width=700&lines=🔍+Scrape+Devpost+Daily;📊+Sync+to+Google+Sheets;📧+Get+Email+Digest+in+Your+Inbox;🤖+Zero+Manual+Work+Required;🇵🇰+Built+for+Pakistan+Hackathons" alt="Typing SVG" />
-
-<br/>
-
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automated-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/features/actions)
 [![Google Sheets](https://img.shields.io/badge/Google_Sheets-Synced-34A853?style=for-the-badge&logo=googlesheets&logoColor=white)](https://sheets.google.com/)
