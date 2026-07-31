@@ -29,21 +29,13 @@ A fully automated pipeline that hunts down upcoming hackathons in Pakistan, logs
 
 ## 🧠 How It Works
 
-<div align="center">
-
 ```mermaid
 flowchart LR
-    A[⏰ GitHub Actions
-Daily Trigger] --> B[🐍 hackathon_scraper.py
-Scrapes Devpost]
-    B --> C[📊 update_sheet.py
-Sends data to Google Apps Script]
-    C --> D[📈 Google Sheet
-Gets Updated]
-    B --> E[📧 send_email.py
-Sends Gmail SMTP Email]
-    E --> F[📬 Inbox
-Daily Hackathon List]
+    A[⏰ GitHub Actions Daily Trigger] --> B[🐍 hackathon_scraper.py Scrapes Devpost]
+    B --> C[📊 update_sheet.py Sends data to Google Apps Script]
+    C --> D[📈 Google Sheet Gets Updated]
+    B --> E[📧 send_email.py Sends Gmail SMTP Email]
+    E --> F[📬 Inbox Daily Hackathon List]
 
     style A fill:#2088FF,stroke:#fff,color:#fff
     style B fill:#3776AB,stroke:#fff,color:#fff
@@ -53,12 +45,10 @@ Daily Hackathon List]
     style F fill:#FBBC05,stroke:#333,color:#333
 ```
 
-</div>
-
-1. 🕷️ **Scrape** — `hackathon_scraper.py` crawls Devpost for hackathons tagged with "Pakistan".
-2. 🔗 **Sync** — The data is pushed to a Google Apps Script Web App that writes it into a Google Sheet.
-3. ✉️ **Notify** — `send_email.py` fires off an email via Gmail SMTP to your configured address.
-4. ⏱️ **Automate** — A GitHub Actions workflow runs the entire thing on a daily schedule, no manual work needed.
+1. 🕷️ **Scrape** - `hackathon_scraper.py` crawls Devpost for hackathons tagged with "Pakistan".
+2. 🔗 **Sync** - The data is pushed to a Google Apps Script Web App that writes it into a Google Sheet.
+3. ✉️ **Notify** - `send_email.py` fires off an email via Gmail SMTP to your configured address.
+4. ⏱️ **Automate** - A GitHub Actions workflow runs the entire thing on a daily schedule. No manual work needed.
 
 ---
 
@@ -112,7 +102,7 @@ The workflow in `daily_update.yml` runs automatically. Sit back and let the hack
 ## 🛠️ Tech Stack
 
 | Layer | Tool |
-|---|---|
+|-------|------|
 | 🐍 Scraping | Python + BeautifulSoup / Requests |
 | 📊 Storage | Google Sheets via Apps Script |
 | 📧 Notifications | Gmail SMTP |
@@ -123,7 +113,7 @@ The workflow in `daily_update.yml` runs automatically. Sit back and let the hack
 ## 🗂️ Files Reference
 
 | File | Purpose |
-|---|---|
+|------|---------|
 | `hackathon_scraper.py` | 🔍 Scrapes hackathon data from Devpost |
 | `update_sheet.py` | 📤 Sends scraped data to the Google Sheet |
 | `send_email.py` | 📧 Sends the daily email digest |
